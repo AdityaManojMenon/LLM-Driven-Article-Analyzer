@@ -1,0 +1,27 @@
+Background:
+This project is an LLM model which scrape information from a websites/documents and answer questions based on the information in the article or summarize findings in the article. 
+The main focus is going to be on financial articles/websites to create a niche and specific use case for this project. 
+This can help finance analyst get infromation quick and efficiently from data sources such as articles. It will be more faster and efficient than chatgpt 3.5 in aspects such as a file can be directly uploaded so can aviod copy pasting. 
+Chatgpt 3.5 has a 3000 word limit so copy pasting isn't effective at if article is big. Also the chatbot I am creating will have a built in knowledge base that can access all the articles and find the relavent information so if the analyst doesn't know which information is present in which article my chatbot can figure that out.
+
+Technical Architecture: 
+1. We would need a document loader to collect the documents/websites that are being searched and load it to a object
+2. We would then need split the object into multiple chunks and store the chunks into a vector database
+3. When a question is asked the relavent chunks can be retrieved and given to the LLM to figure out what the right answer is.
+
+Step by Step process:
+1. Install and import all the required libraries and modules 
+2. Store OpenAI_Key in a seperate file (security purposes) and import the file to use that key to make call to OpenAI API.
+3. Just set up a general streamlit interface to see progresss where there is a sidebar for urls to be entered
+4. Then create a processing botton where the text is loaded using UnstructuredURLLoader
+5. Then we will use RecursiveCharacterTextSplitter to split the loaded articles into chunks of data as documents
+6. Then we will use OpenAI embedding to convert the chunks into vectors and then stored into a pickle file and saved into the FAISS index which acts as a kind of vector base which is able to perform quick search of similar vectors to provide an output. 
+7. Then a query is created which is going to store the question user is going to ask. The question is embedded too and retriever function is used to get similar chunks from the FAISS based on vector similarity.
+8. These chunks are passed onto the OpenAI gpt llm model to output an answer through indexing. This helps save token limit and some cost making the process efficient rather than using all the chunks
+
+Conclusion:
+By following this process, you can efficiently handle and query large sets of text data from news articles. 
+This method leverages FAISS for quick vector similarity searches and OpenAI embeddings for accurate text representation. 
+The use of Streamlit provides a user-friendly interface for inputting URLs and queries. 
+Additionally, storing the OpenAI API key securely and handling data processing in manageable steps ensures that the application is both secure and efficient.
+This approach optimizes the use of token limits and reduces costs by processing only the relevant chunks of data, making the application scalable and cost-effective.
